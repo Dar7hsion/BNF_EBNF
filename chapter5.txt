@@ -1,0 +1,45 @@
+(*Name:     Alexander Purser    *)
+(*Purpose:  Chapter 5 Homework  *)
+(*Date:     2/7/2023            *)
+
+(*Exercise 1*)
+
+fun Sqaure (n: real) = n * n;
+
+Sqaure  5.0;
+
+(*Exercise 2*)
+
+fun max3 (x,y,z) = if x < y then max3 (y,z,y) else if x > y then max3 (x,z,x) else x;
+
+max3 (3, 11, 7);
+
+(*Exercise 3*)
+
+fun sumC n = if n <= 0 then 0 else sumC(n-1) + n*n*n;
+
+sumC 4;
+
+(*Exercise 4*)
+
+fun power (x: real,n) = if n = 0 then 1.0 else if n > 0 then power (x, n-1) * x else 1.0/power (x,~n);
+
+power (4.0,3);
+power (4.0,~3);
+
+(*Exercise 5*)
+
+fun min L = if (length L) = 1 then hd L else if hd L < hd (tl L) then min((hd L)::(List.drop (L, 2))) else min(List.drop (L, 1));
+
+min [3,5,17,~8,9,~3];
+
+
+(*Exercise 6*)
+
+fun fourth L = hd (tl (tl (tl L)));
+
+fourth [1,5,9,2,7,8];
+
+fun test4th L = List.nth(L, 3);
+
+test4th [1,5,9,2,7,8];

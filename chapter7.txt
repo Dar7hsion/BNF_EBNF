@@ -1,0 +1,76 @@
+(*Name:     Alexander Purser    *)
+(*Purpose:  Chapter 5 Homework  *)
+(*Date:     03/02/2023          *)
+
+(*Exercise 1*)
+fun member (e, []) = false
+  | member (e, x::xs) = (e=x) orelse member (e, xs);
+  
+member(3, [1, 7, 4, 5, 3, 9, 2]);
+member(6, [1, 7, 4, 5, 3, 9, 2]);
+member(3, []);
+
+
+
+(*Exercise 2*)
+fun union([], y) = y
+ |  union(x::xs,y) = if member(x,y) then union(xs,y) else x::union(xs,y);  
+  
+union ([3, 4, 7, 9, 8, 5], [5, 7, 6, 2, 1, 8 , 9]);
+union ([3, 4, 7, 9, 8, 5], []);
+union ([], [5, 7, 6, 2, 1, 8 , 9]);
+union ([], []);
+
+
+
+(*Exercise 3*)    
+fun mergesort nil = nil
+  | mergesort [e] = [e]
+  | mergesort theList =
+    let
+  
+       fun halve nil = (nil, nil)
+         | halve [a] = ([a], nil)
+         | halve (a::b::cs) =       
+        let   
+          val (left, right) = halve cs    
+        in 
+          (a::left, b::right)
+        end ;
+  
+       fun merge (nil, right) = right
+         | merge (left, nil) = left
+         | merge (x::left, y::right) = if (x<y) then x::merge(left, y::right) else y::merge(x::left, right); 
+  
+        val (x,y) = halve theList
+    in  
+        merge(mergesort x, mergesort y) 
+    end;
+    
+mergesort [3, 4, 7, 9, 8, 5, 6, 2, 1];
+mergesort [3]; 
+mergesort []; 
+    
+
+
+(*Exercise 4*)    
+fun quicksort nil = nil
+  | quicksort (pivot::rest) =
+    let
+  
+      fun split(nil)=(nil, nil)
+        | split(x::xs) = 
+          let
+            val (below, above) = split(xs)
+          in
+            if x<pivot then (x::below, above) else (below, x::above)   
+          end;
+  
+       val (below, above) = split(rest)
+    in
+       quicksort below@[pivot]@quicksort above
+    end;
+    
+quicksort [3, 4, 7, 9, 8, 5, 6, 2, 1];    
+quicksort [3];  
+quicksort [];
